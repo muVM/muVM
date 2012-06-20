@@ -10,3 +10,10 @@
 *.lai
 *.la
 *.a
+*.sdf
+*.dll
+*.exe
+*.lib
+*.obj
+bin/*
+obj/*
