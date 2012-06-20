@@ -7,6 +7,7 @@
 *.so
 
 # Compiled Static libraries
+source/muVM.sdf
 *.lai
 *.la
 *.a
@@ -18,3 +19,4 @@
 bin/*
 obj/*
 *.opensdf
+source/ipch/*
