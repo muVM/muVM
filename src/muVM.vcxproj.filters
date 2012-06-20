@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="arch\assembler\Instruction.h">
+      <Filter>arch\assembler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="arch">
+      <UniqueIdentifier>{d20b5f52-79fa-4fcc-aa30-76898fccf413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="arch\assembler">
+      <UniqueIdentifier>{8d230aca-cd9a-4fd4-9a76-ddcd3c2d6733}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arch\assembler\Instruction.cpp">
+      <Filter>arch\assembler</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

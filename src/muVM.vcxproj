@@ -76,8 +76,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="arch\assembler\Instruction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arch\assembler\Instruction.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
