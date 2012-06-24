@@ -1,0 +1,50 @@
+This document describes the basic format of instructions and how they are stored internally.
+
+The layout is as follows:
+
+    INSTR_ID
+    ARG_COUNT
+    ARG_SPEC
+
+The INSTR_ID is build up from two fields: The Value Length and the Value itself.
+
+    Value Length is a 3 bit field which gives the following formats for the value field.
+
+        0       The Value is encoded in the lower 5 bits of the instruction byte
+        1       The value is build from the lower 5 bits of the instruction byte as MSB and the following byte as the LSB
+        2-6     The value is build from the lower 5 bits of the instruction byte as MSB followed by N-1 byte interpreted as big endian integer
+        7       The value is build from the lower 5 bits of the instruction byte followed by the lower 7 bits of any following byte until (including) a byte with bit 7 reset is found
+
+    Examples:
+
+        000.01011                               This encodes the instruction with the ID 11
+        011.00001 00100011 01000101 01100111    This encodes the instruction with the ID 0x01234567
+        111.01001 10001101 10001010 01100111    This encodes the instruction with the ID 0x1234567
+
+            Note this encoding should be avoided if not required. Aways use the shortest encoding possible while avoiding the variable length encoding
+
+The argument count is always encoded as a 8 bit integer.
+
+The argument spec is encoded as follows:
+
+    The argument spec consists of 3 separate fields:
+
+        Argument type           The type defines the kind of argument following
+                                    0000                Intermediat constant value. The Argument size is always 0001.
+                                    0001                Direct register use. The argument size is always 0001.
+                                    0002                Indirect memory access at constant address. The argument size is always 0010.
+                                        Size            Defines the accessed operand size as Power of Two.
+                                        Addr            Defines the accessed memory location.
+                                    0003                Indirect register use. The argument size is always 0010.
+                                        Size            Defines the accessed operand size as Power of Two.
+                                        Addr            Defines the register used to determine the accessed memory location.
+                                    0004                Advanced indirect memory access. The argument size is always a multiple of two.
+                                        Size            Defines the accessed operand size as Power of Two.
+                                        Offset          Defines the static memory offset used to determine the accessed memory location. The MSb is used as sign bit.
+                                        RegID           The register to use. The MSb is used as sign bit.
+                                        RegScale        The register scaling to use when adding this register's value.
+        Argument size           The number of values required to describe the argument
+        Argument value          List of Numbers as described for the Instruction ID above interpreted according to the spec of the argument type.
+                                Signed values use the MSb of the first byte of a number as sign bit, thereby shrinking the value length field from three to two bits.
+
+
